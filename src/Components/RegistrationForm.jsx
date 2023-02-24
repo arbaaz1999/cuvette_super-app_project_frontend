@@ -1,5 +1,6 @@
 import { Box, Button, ButtonGroup, Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText, Grid, styled, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 
 const AppHeading = styled(Typography)`
@@ -32,6 +33,7 @@ const MyTextField = styled(TextField)`
 `;
 
 const RegistrationForm = () => {
+    const navigate = useNavigate();
     const [userInput, setUserInput] = useState({
         yourName: '',
         userName: '',
@@ -48,10 +50,11 @@ const RegistrationForm = () => {
         })
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         setFormError(validate(userInput, terms))
         if (Object.keys(formError).length === 0) {
+            navigate('/categories')
             console.log(userInput)
             setUserInput({
                 yourName: '',

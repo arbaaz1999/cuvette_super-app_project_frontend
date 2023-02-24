@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import { Signup } from './Pages'
+import AppRoutes from './Routes';
 
 function App() {
   return (
     <>
-      <Signup />
+      <AppRoutes />
     </>
   );
 }
