@@ -1,4 +1,4 @@
-import { Categories, Signup } from '../Pages/index'
+import { Categories, Dashboard, Signup } from '../Pages/index'
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 
@@ -8,6 +8,7 @@ const AppRoutes = () => {
             <Routes>
                 <Route path='/' element={<Signup />} />
                 <Route path='/categories' element={<Categories />} />
+                <Route path='/dashboard' element={<Dashboard />} />
             </Routes>
         </>
     )

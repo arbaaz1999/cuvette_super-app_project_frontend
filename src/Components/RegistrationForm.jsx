@@ -52,40 +52,43 @@ const RegistrationForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setFormError(validate(userInput, terms))
-        if (Object.keys(formError).length === 0) {
-            navigate('/categories')
-            console.log(userInput)
-            setUserInput({
-                yourName: '',
-                userName: '',
-                yourEmail: '',
-                mobile: '',
-            })
-            setTerms(false)
-        } else return formError;
+        new Promise((resolve, reject) => {
+            let allErrors = validate(userInput, terms)
+            if (Object.values(allErrors).length > 0) {
+                return resolve(allErrors)
+            } else {
+                return reject(userInput)
+            }
+        }).then(res => {
+            setFormError(res)
+        }).catch((err) => {
+            console.log(err)
+            setFormError({})
+            localStorage.setItem('userInfo', JSON.stringify(err))
+            setTimeout(() => {
+                navigate('/categories')
+
+            }, 500)
+        })
     }
 
     const validate = (values, tAndC) => {
         let errors = {}
         if (!values.yourName) {
-            errors.yourName = 'Name is required!'
+            errors.yourNameErr = 'Name is required!'
         }
         if (!values.userName) {
-            errors.userName = 'Username is required!'
+            errors.userNameErr = 'Username is required!'
         }
         if (!values.yourEmail) {
-            errors.yourEmail = 'Email is required!'
-        } else if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(values.yourEmail) === false) {
-            errors.yourEmail = 'Please enter valid email!'
+            errors.yourEmailErr = 'Email is required!'
+            //eslint-disable-next-line
         }
         if (!values.mobile) {
-            errors.mobile = 'Contact number is required!'
-        } else if (/^\d{10}$/.test(values.mobile) === false) {
-            errors.mobile = 'Please enter 10 digits mobile number'
+            errors.mobileErr = 'Contact number is required!'
         }
         if (!tAndC) {
-            errors.terms = 'Please accept terms and condition!'
+            errors.termsErr = 'Please accept terms and condition!'
         }
 
         return errors;
@@ -120,8 +123,8 @@ const RegistrationForm = () => {
                                     style: { color: '#7c7c7c' }
                                 }}
                                 sx={{ input: { color: "#7c7c7c" }, "label": { color: "#7c7c7c" } }}
-                                error={formError.yourName ? true : false}
-                                helperText={formError.yourName ? formError.yourName : null}
+                                error={formError.yourNameErr ? true : false}
+                                helperText={formError.yourNameErr ? formError.yourNameErr : null}
                             />
                         </FormControl>
                         <FormControl fullWidth margin='normal'>
@@ -136,8 +139,8 @@ const RegistrationForm = () => {
                                     style: { color: '#7c7c7c' }
                                 }}
                                 sx={{ input: { color: "#7c7c7c" }, "label": { color: "#7c7c7c" } }}
-                                error={formError.userName ? true : false}
-                                helperText={formError.userName ? formError.userName : null}
+                                error={formError.userNameErr ? true : false}
+                                helperText={formError.userNameErr ? formError.userNameErr : null}
                             />
                         </FormControl>
                         <FormControl fullWidth margin='normal'>
@@ -152,8 +155,8 @@ const RegistrationForm = () => {
                                     style: { color: '#7c7c7c' }
                                 }}
                                 sx={{ input: { color: "#7c7c7c" }, "label": { color: "#7c7c7c" } }}
-                                error={formError.yourEmail ? true : false}
-                                helperText={formError.yourEmail ? formError.yourEmail : null}
+                                error={formError.yourEmailErr ? true : false}
+                                helperText={formError.yourEmailErr ? formError.yourEmailErr : null}
                             />
                         </FormControl>
                         <FormControl fullWidth margin='normal'>
@@ -168,14 +171,14 @@ const RegistrationForm = () => {
                                     style: { color: '#7c7c7c' }
                                 }}
                                 sx={{ input: { color: "#7c7c7c" }, "label": { color: "#7c7c7c" } }}
-                                error={formError.mobile ? true : false}
-                                helperText={formError.mobile ? formError.mobile : null}
+                                error={formError.mobileErr ? true : false}
+                                helperText={formError.mobileErr ? formError.mobileErr : null}
                             />
                         </FormControl>
                         <FormControl
                             fullWidth
                             margin='normal'
-                            error={formError.terms ? true : false}
+                            error={formError.termsErr ? true : false}
                         >
                             <FormGroup>
                                 <FormControlLabel
@@ -192,7 +195,7 @@ const RegistrationForm = () => {
                                     sx={{ '.MuiFormControlLabel-label': { color: '#7c7c7c' } }}
                                 />
                             </FormGroup>
-                            <FormHelperText>{formError.terms ? formError.terms : null}</FormHelperText>
+                            <FormHelperText>{formError.termsErr ? formError.termsErr : null}</FormHelperText>
                         </FormControl>
                         <Button
                             fullWidth

@@ -2,7 +2,9 @@ import React from 'react'
 
 const Dashboard = () => {
     return (
-        <div style={{ color: '#fff' }}>Dashboard</div>
+        <>
+            <h1 style={{ color: '#fff' }}>This is Dashboard</h1>
+        </>
     )
 }
 
