@@ -1,9 +1,19 @@
+import { Box, Grid } from '@mui/material'
 import React from 'react'
+import { ProfileCard } from '../Components'
 
 const Dashboard = () => {
     return (
         <>
-            <h1 style={{ color: '#fff' }}>This is Dashboard</h1>
+            <Box sx={{ padding: '3% 5%' }}>
+                <Grid container>
+                    <Grid item xs={4}>
+                        <ProfileCard />
+                    </Grid>
+
+                </Grid>
+
+            </Box>
         </>
     )
 }

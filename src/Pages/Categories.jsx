@@ -104,11 +104,11 @@ const Categories = () => {
     const navigate = useNavigate();
     const [selectedCard, setSelectedCard] = useState([]);
     const [categoryErr, setCategoryErr] = useState('');
-    const [cardBorder, setCardBorder] = useState("")
+    // const [cardBorder, setCardBorder] = useState('')
 
-    const handler = (id) => {
+    const cardHandler = (id) => {
         new Promise((resolve, reject) => {
-            let cardSelected = categoryData.find(e => e.id === id)
+            let cardSelected = categoryData.find(e => e.id === id);
             let found = selectedCard.some(el => el.id === id);
             if (!found) {
                 resolve(cardSelected)
@@ -125,7 +125,6 @@ const Categories = () => {
     }
 
     const deleteHandler = (id) => {
-        setCardBorder("")
         setSelectedCard(selectedCard.filter(e => e.id !== id))
     }
 
@@ -147,7 +146,7 @@ const Categories = () => {
             setTimeout(() => {
                 navigate('/dashboard')
 
-            }, 500)
+            }, 200)
         })
 
     }
@@ -193,19 +192,18 @@ const Categories = () => {
                         <Grid container columnGap={4} rowGap={4} justifyContent='center'>
                             {
                                 categoryData.map(category => {
-                                    let { id, categoryName, imgUrl, cardBackground, setBorder } = category;
+                                    let { id, categoryName, imgUrl, cardBackground } = category;
                                     return (
                                         <div
                                             name={categoryName}
                                             key={id}
                                             onClick={() => {
-                                                handler(id)
+                                                cardHandler(id)
                                             }}
                                         >
                                             <MyCard
                                                 sx={{
                                                     background: cardBackground,
-                                                    border: setBorder ? setBorder : null,
                                                 }}
                                             >
                                                 <MyCardHeader
