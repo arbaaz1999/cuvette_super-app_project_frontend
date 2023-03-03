@@ -1,11 +1,11 @@
 import { Chip, Grid, styled, Typography } from '@mui/material'
 import { profilepic } from '../Assets';
-import React from 'react'
+import React, { useState } from 'react'
 
 const ProfileContainer = styled(Grid)({
     background: '#5746EA',
     borderRadius: '16px',
-    padding: '5%',
+    padding: '3%',
 });
 
 const ProfilePic = styled(Grid)`
@@ -33,6 +33,18 @@ const ProfileCard = () => {
     const userInfo = JSON.parse(localStorage.getItem('userInfo'))
     const interests = JSON.parse(localStorage.getItem('categories'))
     console.log(interests, userInfo)
+    const [choices, setChoices] = useState(interests)
+
+    const handleInterestsDelete = (id) => {
+        let filteredIntereset;
+        if (choices.length > 1) {
+            filteredIntereset = choices.filter(e => e.id !== id)
+            setChoices(filteredIntereset);
+        }
+        localStorage.setItem('categories', JSON.stringify(choices))
+
+    }
+
     return (
         <>
             <ProfileContainer container columnSpacing={3}>
@@ -47,7 +59,7 @@ const ProfileCard = () => {
                     </Grid>
                     <Grid container gap={2}>
                         {
-                            interests.map((e) => (
+                            choices.map((e) => (
 
                                 <Chip
                                     sx={{
@@ -59,7 +71,7 @@ const ProfileCard = () => {
                                     }}
                                     key={e.id}
                                     label={e.categoryName}
-                                    onDelete={true}
+                                    onDelete={() => handleInterestsDelete(e.id)}
                                 />
                             ))
                         }
