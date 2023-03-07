@@ -1,21 +1,54 @@
-import { Box, Grid } from '@mui/material'
+import { Grid, styled } from '@mui/material'
 import React from 'react'
-import { ProfileCard, WeatherCard } from '../Components'
+import { NewsCard, NotesCard, ProfileCard, Timer, WeatherCard } from '../Components/index'
+
+const DashBoardContainer = styled(Grid)(({ theme }) => ({
+    display: 'grid',
+    maxWidth: '90%',
+    height: '100%',
+    margin: '2% auto',
+    placeContent: 'center',
+    gridTemplateColumns: '33.33% 33.33% 33.33%',
+    gridTemplateRows: '[row1-start] auto [row1-end] auto [third-line] auto [last-line]',
+    columnGap: '1.5rem',
+    rowGap: '1.5rem',
+}));
+
+const GridItem3 = styled(Grid)(({ theme }) => ({
+    gridColumnStart: '3',
+    gridRow: '1 / span 3',
+}));
+
+const GridItem2 = styled(Grid)(({ theme }) => ({
+    gridColumnStart: '2',
+    gridRow: '1 / span 2',
+}));
+
+const GridItem5 = styled(Grid)(({ theme }) => ({
+    gridRowStart: '3',
+    gridColumn: '1 / span 2',
+}))
 
 const Dashboard = () => {
     return (
         <>
-            <Box sx={{ width: "90%", margin: '3% auto' }}>
-                <Grid container spacing={{ md: 2, sm: 2, xs: 2 }}>
-                    <Grid item md={4} sm={6} xs={12}>
-                        <ProfileCard />
-                    </Grid>
-                    <Grid item md={4} sm={6} xs={12}>
-                        <WeatherCard />
-                    </Grid>
-
+            <DashBoardContainer container>
+                <Grid item>
+                    <ProfileCard />
                 </Grid>
-            </Box>
+                <GridItem2 item>
+                    <NotesCard />
+                </GridItem2>
+                <GridItem3 item>
+                    <NewsCard />
+                </GridItem3>
+                <Grid item>
+                    <WeatherCard />
+                </Grid>
+                <GridItem5>
+                    <Timer />
+                </GridItem5>
+            </DashBoardContainer>
         </>
     )
 }

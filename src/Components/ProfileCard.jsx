@@ -3,6 +3,9 @@ import { profilepic } from '../Assets';
 import React, { useState } from 'react'
 
 const ProfileContainer = styled(Grid)({
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
     background: '#5746EA',
     borderRadius: '16px',
     padding: '3%',
@@ -18,7 +21,7 @@ const ProfilePic = styled(Grid)`
 `;
 
 const Img = styled('img')({
-    display: 'block',
+    display: 'inline-block',
 })
 
 const ProfileInfo = styled(Grid)`
@@ -47,11 +50,11 @@ const ProfileCard = () => {
 
     return (
         <>
-            <ProfileContainer container columnSpacing={3}>
+            <ProfileContainer container>
                 <ProfilePic item xs={3}>
                     <Img src={profilepic} />
                 </ProfilePic>
-                <ProfileInfo item xs={9}>
+                <ProfileInfo item xs={8}>
                     <Grid container direction='column'>
                         <Typography variant='body1' sx={{ color: '#fff' }}>{userInfo.yourName}</Typography>
                         <Typography variant='body2' sx={{ color: '#fff' }}>{userInfo.yourEmail}</Typography>

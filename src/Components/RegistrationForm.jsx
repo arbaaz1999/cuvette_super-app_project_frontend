@@ -134,7 +134,7 @@ const RegistrationForm = () => {
                                 name='userName'
                                 placeholder='Choose your username'
                                 type='text'
-                                label='Username'
+                                label='Username *'
                                 InputLabelProps={{
                                     style: { color: '#7c7c7c' }
                                 }}
